@@ -1,0 +1,41 @@
+GET PublishIDGetter
+=> PP-100N-317378_000001f8
+
+POST NormalJobSetter
+[FILE]
+
+REPLY:
+\000\000\004 \000\000\001\350 <-- JOB ID
+0x1e8
+0x1fe ===> use this reply to MKCOL /uploads/000001fe/
+
+GET /webapp/UploadInfoGetter?serverjobid=000001e8 HTTP/1.1
+\000\000 fbfec1bedc633d1288ea5d87531ea4d6
+
+MKCOL /uploads/000001e8/ HTTP/1.1\r\n
+Auth: Basic MDAwMDAxZTg6ZmJmZWMxYmVkYzYzM2QxMjg4ZWE1ZDg3NTMxZWE0ZDY=
+      000001e8:fbfec1bedc633d1288ea5d87531ea4d6
+
+POST /webapp/JobController HTTP/1.1\r\n
+action=5&serverjobid=000001e8
+
+PUT /uploads/000001e8/DiscInfo.xml HTTP/1.1\r\n
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FileList><File size="262139981" month="3" day="3" year="2011" time="09:11:21" name="TDM3511.EXE"/><File size="252657963" month="3" day="3" year="2011" time="09:13:09" name="TDM3512.CAB"/></FileList>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FileList><File size="11" month="3" day="7" year="2011" time="15:24:12" name="test.txt"/></FileList>
+
+POST /webapp/JobController HTTP/1.1\r\n
+action=4&serverjobid=000001e8
+
+
+PUT /uploads/000001e8/DiscImage_DiscImage.iso HTTP/1.1
+Authorization:Basic MDAwMDAxZTg6ZmJmZWMxYmVkYzYzM2QxMjg4ZWE1ZDg3NTMxZWE0ZDY=
+Content-Range:bytes 0-51199/514852864
+Content-Length:51200
+
+(iso data)
+
+
+POST /webapp/JobController HTTP/1.1\r\n
+action=0&serverjobid=000001e8

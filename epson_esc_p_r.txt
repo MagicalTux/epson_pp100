@@ -1,0 +1,81 @@
+EPSON PRINTER
+
+VALUES ARE LITTLE ENDIAN
+
+ESC ( G = Select graphic mode
+PARAMS: n(16bits) m(8bits)
+
+n=01
+m=01
+
+ESC ( U = Set unit
+PARAMS: n(16bits) 0x01 0x01 0x01 0xa0 0x05
+
+n=05
+Sets unit to 1440/x = 0x01 dpi. To set to 720dpi, use 0x02
+
+ESC U = Set unidirectional
+PARAMS: n(8bits)
+
+n=00
+(sets "fast" printing, but can be less reliable)
+
+ESC ( i = Select MicroWeave print mode
+PARAMS: 0x01 0x00 n(8bits)
+
+n=00 (off)
+
+ESC 0x19 0x31 = ?
+
+ESC ( C = Set page length in defined unit
+PARAMS: n(16bits) m(16bits)
+n=0x0004
+m=0x1b74 (7028 = 4.88 inches at 1440dpi = 12.4cm)
+
+ESC ( c = Set page format
+PARAMS: 0x08 0x00 0x68 0xfa 0xff 0xff 0x08 0x1b 0x00 0x00
+
+ESC ( S = ?
+PARAMS: 0x08 0x00 0x74 0x1b 0x00 0x00 0x74 0x1b 0x00 0x00
+
+ESC ( K = ?
+PARAMS: 0x02 0x00 0x00 0x02
+
+ESC ( D = ?
+PARAMS: 0x04 0x00 0x40 0x38 0x50 0x14
+
+ESC ( m = ?
+PARAMS: 0x01 0x00 0x80
+
+ESC ( e = ?
+PARAMS: 0x02 0x00 0x00 0x13 
+
+(HEADER SIZE=0x11a bytes = 282 bytes)
+
+(initial move?)
+
+ESC ( v = Move Relative Position
+PARAMS: n(16bits) m(16bits) 0x00 0x00
+
+n=0x04
+m=0x08bc
+
+(print loop)
+
+ESC ( $ = ?
+PARAMS: 0x04 0x00 0x00 0x02 0x00 0x00
+
+ESC i = New way graphics
+ctable ===> 0 2 1 4 18 17
+ctable ===> 0=black 1=magenta 2=cyan 4=yellow 17=light_magenta 18=light_cyan
+8bits: ctable[plane]
+8bits: 1 (TIFF compression (incorrectly documented as "run length encoded"))
+8bits: 2 (bits per pixel)
+16bits: bytes_per_line (0xc6=198)
+16bits: lines (0xb4=180)
+
+ESC ( v = Move Relative Position
+PARAMS: n(16bits) m(16bits) 0x00 0x00
+
+n=0x04
+m=0x55 (85)

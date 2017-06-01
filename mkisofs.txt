@@ -1,0 +1,1 @@
+mkisofs -J -no-rr -o ../disk.iso -publisher "PUBLISHER" -UDF -V 'DiskName' .
